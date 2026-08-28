@@ -5,19 +5,18 @@ import StatsDisplay from "./components/StatsDisplay";
 
 function App() {
 
-
+  const [text, setText] = useState('');
   const [charCount, setCharCount] = useState<number>(0);
   const [wordCount, setWordCount] = useState<number>(0);
   const [readingTime, setReadingTime] = useState<string>('0:00');
-  const WPM = 300;
-
-
+  const WPM = 320;
 
   function handleTextArea(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    const value = event.target.value.trim();
+    const { value } = event.target;
+    setText(value);
 
     const chCount = value.length;
-    const wdCount = value === '' ? 0 : value.split(/\s+/).length;
+    const wdCount = value === '' ? 0 : value.split(/\s+/).filter(Boolean).length;
     const totalSeconds = Math.ceil((wdCount / WPM) * 60);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
@@ -25,7 +24,6 @@ function App() {
     setCharCount(chCount);
     setWordCount(wdCount)
     setReadingTime(rdTime);
-
 
   }
 
@@ -37,13 +35,11 @@ function App() {
          pb-1 text-3xl nextra-border"
       >Character Counter</h2>
 
-      <TextInput onTextAreaChange={handleTextArea} />
+      <TextInput value={text} onTextAreaChange={handleTextArea} />
       <StatsDisplay charCount={charCount} wordCount={wordCount} readTime={readingTime} />
 
     </div>
   )
-
-
 }
 
 export default App;

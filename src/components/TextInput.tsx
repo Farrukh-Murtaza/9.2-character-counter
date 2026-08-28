@@ -1,17 +1,17 @@
 import type React from "react";
 
-
 interface TextInputProps {
     className?: string,
+    value: string,
     onTextAreaChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void
 }
 
-
-function TextInput({ className, onTextAreaChange }: TextInputProps) {
+function TextInput({ className, value, onTextAreaChange }: TextInputProps) {
 
     return (
         <div className="w-full">
             <textarea
+                value={value}
                 onChange={onTextAreaChange}
                 className={`w-full p-4 border border-gray-300 rounded-lg
             focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
